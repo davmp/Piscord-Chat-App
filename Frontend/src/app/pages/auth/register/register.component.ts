@@ -38,10 +38,31 @@ export class RegisterComponent {
 
   constructor() {
     this.registerForm = this.formBuilder.group({
-      username: ["", Validators.required],
+      username: [
+        "",
+        Validators.compose([
+          Validators.minLength(3),
+          Validators.maxLength(30),
+          Validators.required,
+        ]),
+      ],
       profileUrl: [""],
-      password: ["", Validators.required],
-      confirmPassword: ["", Validators.required],
+      password: [
+        "",
+        Validators.compose([
+          Validators.minLength(4),
+          Validators.maxLength(50),
+          Validators.required,
+        ]),
+      ],
+      confirmPassword: [
+        "",
+        Validators.compose([
+          Validators.minLength(4),
+          Validators.maxLength(50),
+          Validators.required,
+        ]),
+      ],
     });
   }
 

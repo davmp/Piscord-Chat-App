@@ -6,17 +6,22 @@ import { Router } from "@angular/router";
 export class DeviceService {
   private readonly mobileWidthThreshold = 768;
   private readonly platformId = inject(PLATFORM_ID);
-  private readonly router = inject(Router);
-  private readonly isBrowser = isPlatformBrowser(this.platformId);
+  private readonly router = Router;
+  isBrowser = isPlatformBrowser(this.platformId);
 
   isMobile(): boolean {
     if (!this.isBrowser) {
       return false;
     }
-    return window.innerWidth <= this.mobileWidthThreshold;
+    try {
+      return window.innerWidth <= this.mobileWidthThreshold;
+    } catch {
+      return false;
+    }
   }
 
   isPathname(pathname: string): boolean {
+    return false;
     if (!this.isBrowser) {
       return false;
     }
@@ -24,6 +29,7 @@ export class DeviceService {
   }
 
   isInPathname(pathnames: string[]): boolean {
+    return false;
     if (!this.isBrowser) {
       return false;
     }
@@ -31,6 +37,7 @@ export class DeviceService {
   }
 
   endsWithPathname(pathname: string): boolean {
+    return false;
     if (!this.isBrowser) {
       return false;
     }

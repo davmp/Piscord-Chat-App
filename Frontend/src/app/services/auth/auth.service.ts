@@ -1,31 +1,55 @@
 import { isPlatformBrowser } from "@angular/common";
 import { HttpClient } from "@angular/common/http";
-import { inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { inject, Injectable, PLATFORM_ID, signal } from "@angular/core";
 import { Observable, shareReplay, tap } from "rxjs";
 import type {
   AuthResponse,
   LoginRequest,
   RegisterRequest,
 } from "../../models/auth.models";
-import type { User } from "../../models/user.models";
+import type { Profile, UpdateProfileRequest } from "../../models/user.models";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
   private readonly authApiUrl = "http://localhost:8000/api";
+  private readonly profileApiUrl = "http://localhost:8000/api/profile";
   private readonly platformId = inject(PLATFORM_ID);
   private http = inject(HttpClient);
 
-  profile(): Observable<any> {
-    return this.http.get(`${this.authApiUrl}/profile`);
+  profile = signal<Profile | null>(null);
+
+  constructor() {
+    this.getProfile();
+  }
+
+  getProfile() {
+    return this.http.get<Profile>(this.profileApiUrl).pipe(
+      tap((profile) => {
+        this.profile.set(profile);
+        this.setProfile(profile);
+      })
+    );
+  }
+
+  updateProfile(data: Partial<UpdateProfileRequest>) {
+    return this.http.put<Profile>(this.profileApiUrl, data).pipe(
+      tap((profile) => {
+        this.profile.set(profile);
+        this.setProfile(profile);
+      })
+    );
   }
 
   login(data: LoginRequest): Observable<AuthResponse> {
     return this.http
       .post<AuthResponse>(`${this.authApiUrl}/auth/login`, data)
       .pipe(
-        tap((res) => this.setSession(res)),
+        tap((res) => {
+          this.setSession(res);
+          this.profile.set(res.user);
+        }),
         shareReplay()
       );
   }
@@ -34,7 +58,10 @@ export class AuthService {
     return this.http
       .post<AuthResponse>(`${this.authApiUrl}/auth/register`, data)
       .pipe(
-        tap((res) => this.setSession(res)),
+        tap((res) => {
+          this.setSession(res);
+          this.profile.set(res.user);
+        }),
         shareReplay()
       );
   }
@@ -57,12 +84,10 @@ export class AuthService {
     return null;
   }
 
-  getUser(): User | null {
+  private setProfile(user: Profile) {
     if (isPlatformBrowser(this.platformId)) {
-      const user = localStorage.getItem("user");
-      return user ? JSON.parse(user) : null;
+      localStorage.setItem("user", JSON.stringify(user));
     }
-    return null;
   }
 
   private setSession(authResult: AuthResponse): void {
