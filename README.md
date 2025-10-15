@@ -1,59 +1,42 @@
-# PiscordFrontend
+# Piscord – Chat em Tempo Real Full Stack 🚀
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.17.
+Aplicação inspirada em plataformas de chat, utilizando Angular no frontend, Go (com Gorilla Toolkit) no backend e MongoDB para armazenamento. Projeto avançado para mostrar integração real-time, autenticação e arquitetura escalável na prática.
 
-## Development server
+## 🚩 Motivação do Projeto
 
-To start a local development server, run:
+Criado para aprender na prática como unir Angular, Go e MongoDB em uma aplicação real-time robusta. Ideal como showcase para recrutadores e times técnicos que buscam desenvolvedores com domínio em soluções web modernas e comunicação instantânea.
 
-```bash
-ng serve
-```
+## ✨ Funcionalidades
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Autenticação básica de usuários (JWT)
+- Chat em tempo real por WebSocket
+- Lista de conversas e usuários online
+- Persistência de mensagens, salas e notificações no MongoDB
+- CRUD de usuários, mensagens, salas e notificações
+- Interface responsiva e otimizada em Angular
+- Backend estruturado com Gorilla Mux (Go)
+- Separação entre camadas: API, sockets, serviços e modelos
 
-## Code scaffolding
+## 🛠️ Tecnologias Utilizadas
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Frontend:** Angular 17+, TypeScript, RxJS, Angular Material, PrimeNG
+- **Backend:** Go 1.21+, Gorilla Mux/WS, Gin, Middleware customizado, WebSocket
+- **Banco de Dados:** MongoDB Atlas
+- **Autenticação:** JWT (JSON Web Tokens)
+- **Testes:** Go Test (backend)
 
-```bash
-ng generate component component-name
-```
+## 🚀 Como Executar
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Pré-requisitos
 
-```bash
-ng generate --help
-```
+- Docker
 
-## Building
+ou
 
-To build the project run:
+- Node.js 18+
+- Go 1.20+
+- MongoDB local ou online
 
-```bash
-ng build
-```
+### Instalação
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Clone o projeto:
