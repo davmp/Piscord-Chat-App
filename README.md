@@ -27,16 +27,67 @@ Criado para aprender na prática como unir Angular, Go e MongoDB em uma aplicaç
 
 ## 🚀 Como Executar
 
+Esta aplicação utiliza Docker e Docker Compose para automatizar o setup do ambiente, facilitando a reprodução por outros usuários.
+
 ### Pré-requisitos
 
-- Docker
+- Docker instalado ([Get Docker](https://docs.docker.com/get-started/get-docker/))
+- Docker Compose
 
-ou
+### Passos para execução
 
-- Node.js 18+
-- Go 1.20+
-- MongoDB local ou online
+1. Abrir o projeto:
 
-### Instalação
+```bash
+git clone https://github.com/davmp/piscord-chat-app.git
 
-Clone o projeto:
+// Entrar na pasta do projeto
+cd /piscord-chat-app
+```
+
+2. Copie `.env.example` para `.env`:
+
+```bash
+cp .env.example .env
+```
+
+3. Preencha o `.env` com seus próprios valores (JWT secret, URLs etc.)
+
+4. Execute o seguinte comando para iniciar os serviços (frontend, backend e banco MongoDB):
+
+```bash
+docker compose up --build -d
+```
+
+5. A aplicação Angular estará disponível por padrão em http://localhost:4200 e a API backend em http://localhost:8000.
+
+6. Para parar os serviços:
+
+```bash
+docker compose down
+
+// Deletar os containers e imagens criados
+docker compose rm -f
+```
+
+## 🔒 Configuração de Ambiente
+
+### Gerando uma chave secreta JWT
+
+Para criar uma chave aleatória e segura para o JWT no console:
+
+### Usando Node.js:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Copie o resultado e coloque no campo `JWT_SECRET` do seu `.env`.
+
+### Usando OpenSSL
+
+```bash
+openssl rand -base64 32
+```
+
+Copie a saída e utilize como sua chave secreta.
