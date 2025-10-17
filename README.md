@@ -83,7 +83,9 @@ docker compose rm -f
 
 ## 🔒 Configuração de Ambiente
 
-# Configurando as portas
+### Configurando as variáveis de ambiente (_.env_)
+
+#### Configurando as portas
 
 A porta externa que você vai usar para acessar o Frontend (http://localhost:FRONTEND_PORT)
 
@@ -97,7 +99,7 @@ A porta interna que o Backend em Go escuta
 BACKEND_PORT=8000
 ```
 
-# Configurando banco de dados
+#### Configurando banco de dados
 
 Credenciais do banco de dados (USADO SOMENTE PARA INICIALIZAR O SERVIÇO MONGODB)
 
@@ -117,11 +119,11 @@ PRECISA ser igual o usuário/senha acima.
 
 MONGO_URI=mongodb://seu_usuario_do_bd:seu_senha_do_bd@mongodb:27017
 
-# Gerando uma chave secreta JWT
+#### Gerando uma chave secreta JWT
 
 Para criar uma chave aleatória e segura para o JWT no console:
 
-### Usando Node.js:
+##### Usando Node.js:
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -129,7 +131,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 Copie o resultado e coloque no campo `JWT_SECRET` do seu `.env`.
 
-### Usando OpenSSL
+##### Usando OpenSSL
 
 ```bash
 openssl rand -base64 32
@@ -137,15 +139,11 @@ openssl rand -base64 32
 
 Copie a saída e utilize como sua chave secreta.
 
-# Configurando NGINX
-
-- Servir arquivos estáticos diretamente de `dist/piscord-frontend/browser` usando Nginx root e `try_files`.
-
-- Proxy de requisições (HTTP e WebSocket) que precisam de SSR para o servidor Node.js na porta 8000.
+### Configurando NGINX
 
 Crie um arquivo de configuração do Nginx em `/Frontend/nginx.conf`.
 
-Exemplo de configuração do Nginx:
+Configuração padrão do Nginx:
 
 ```bash
 server {
