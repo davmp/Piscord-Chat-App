@@ -41,32 +41,42 @@ Esta aplicação utiliza Docker e Docker Compose para automatizar o setup do amb
 ```bash
 git clone https://github.com/davmp/piscord-chat-app.git
 
-// Entrar na pasta do projeto
-cd /piscord-chat-app
+# Entrar na pasta do projeto
+cd piscord-chat-app
 ```
 
 2. Copie `.env.example` para `.env`:
 
 ```bash
+# Linux and MacOS
 cp .env.example .env
+
+# Windows (CMD)
+copy .env.example .env
+
+# Windows (PowerShell)
+Copy-Item .env.example .env
 ```
 
-3. Preencha o `.env` com seus próprios valores (JWT secret, URLs etc.)
+3. IMPORTANTE: Configure o ambiente seguindo os [passos listados aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configura%C3%A7%C3%A3o-de-ambiente).
+   - Preencha o `.env` com seus próprios valores (JWT secret, URLs etc.) ([Clique aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configura%C3%A7%C3%A3o-de-ambiente))
+   - Configure o `Nginx` ([Clique aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configurando-nginx))
 
-4. Execute o seguinte comando para iniciar os serviços (frontend, backend e banco MongoDB):
+5. Depois de configurar o ambiente, execute o seguinte comando para iniciar os serviços (frontend, backend e banco MongoDB):
 
 ```bash
 docker compose up --build -d
 ```
 
-5. A aplicação Angular estará disponível por padrão em http://localhost:4200 e a API backend em http://localhost:8000.
+5. A aplicação estará disponível por padrão em http://localhost:6786.
+   Em caso de algum erro, revise a configuração do ambiente [listada aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configura%C3%A7%C3%A3o-de-ambiente).
 
-6. Para parar os serviços:
+7. Para parar os serviços:
 
 ```bash
 docker compose down
 
-// Deletar os containers e imagens criados
+# Deletar os containers e imagens criados
 docker compose rm -f
 ```
 
@@ -94,7 +104,7 @@ Credenciais do banco de dados (USADO SOMENTE PARA INICIALIZAR O SERVIÇO MONGODB
 MONGO_ROOT_USERNAME=seu_usuario_do_bd
 MONGO_ROOT_PASSWORD=seu_senha_do_bd
 
-// Nome do volume do mongo (padrão)
+# Nome do volume do mongo (padrão)
 MONGO_VOLUME_NAME=mongo-data
 ```
 
