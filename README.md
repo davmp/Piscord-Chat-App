@@ -72,6 +72,40 @@ docker compose rm -f
 
 ## 🔒 Configuração de Ambiente
 
+# Configurando as portas
+
+A porta externa que você vai usar para acessar o Frontend (http://localhost:FRONTEND_PORT)
+
+```bash
+FRONTEND_PORT=6786
+```
+
+A porta interna que o Backend em Go escuta
+
+```bash
+BACKEND_PORT=8000
+```
+
+# Configurando banco de dados
+
+Credenciais do banco de dados (USADO SOMENTE PARA INICIALIZAR O SERVIÇO MONGODB)
+
+```bash
+MONGO_ROOT_USERNAME=seu_usuario_do_bd
+MONGO_ROOT_PASSWORD=seu_senha_do_bd
+
+// Nome do volume do mongo (padrão)
+MONGO_VOLUME_NAME=mongo-data
+```
+
+Dados de conexão que o Backend vai usar.
+
+Nota: 'mongodb' é o nome do serviço definido em `docker-compose.yml`.
+
+PRECISA ser igual o usuário/senha acima.
+
+MONGO_URI=mongodb://seu_usuario_do_bd:seu_senha_do_bd@mongodb:27017
+
 # Gerando uma chave secreta JWT
 
 Para criar uma chave aleatória e segura para o JWT no console:
