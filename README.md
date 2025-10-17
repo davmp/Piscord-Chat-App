@@ -58,9 +58,9 @@ copy .env.example .env
 Copy-Item .env.example .env
 ```
 
-3. IMPORTANTE: Configure o ambiente seguindo os [passos listados aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configura%C3%A7%C3%A3o-de-ambiente).
-   - Preencha o `.env` com seus próprios valores (JWT secret, URLs etc.) ([Clique aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configura%C3%A7%C3%A3o-de-ambiente))
-   - Configure o `Nginx` ([Clique aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configurando-nginx))
+3. IMPORTANTE: Configure o ambiente seguindo os [passos listados aqui](#-configura%C3%A7%C3%A3o-de-ambiente).
+   - Preencha o `.env` com seus próprios valores (JWT secret, URLs etc.) [Clique aqui](#configurando-as-portas)
+   - Configure o `Nginx` [(Clique aqui)](#configurando-nginx)
 
 5. Depois de configurar o ambiente, execute o seguinte comando para iniciar os serviços (frontend, backend e banco MongoDB):
 
@@ -69,7 +69,8 @@ docker compose up --build -d
 ```
 
 5. A aplicação estará disponível por padrão em http://localhost:6786.
-   Em caso de algum erro, revise a configuração do ambiente [listada aqui](https://github.com/davmp/Piscord-Chat-App/tree/main?tab=readme-ov-file#-configura%C3%A7%C3%A3o-de-ambiente).
+
+> Em caso de algum erro, revise a configuração do ambiente [listada aqui](#-configura%C3%A7%C3%A3o-de-ambiente).
 
 7. Para parar os serviços:
 
