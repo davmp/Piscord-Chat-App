@@ -72,7 +72,7 @@ docker compose rm -f
 
 ## 🔒 Configuração de Ambiente
 
-### Gerando uma chave secreta JWT
+# Gerando uma chave secreta JWT
 
 Para criar uma chave aleatória e segura para o JWT no console:
 
@@ -91,3 +91,45 @@ openssl rand -base64 32
 ```
 
 Copie a saída e utilize como sua chave secreta.
+
+# Configurando NGINX
+
+- Servir arquivos estáticos diretamente de `dist/piscord-frontend/browser` usando Nginx root e `try_files`.
+
+- Proxy de requisições (HTTP e WebSocket) que precisam de SSR para o servidor Node.js na porta 8000.
+
+Crie um arquivo de configuração do Nginx em `/Frontend/nginx.conf`.
+
+Exemplo de configuração do Nginx:
+
+```bash
+server {
+    listen 80;
+    server_name localhost;
+
+    root /usr/share/nginx/html;
+    index /index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://backend:8000/api/;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_buffering off;
+
+        proxy_read_timeout 86400;
+        proxy_send_timeout 86400;
+    }
+}
+```
