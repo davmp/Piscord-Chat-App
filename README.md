@@ -59,8 +59,8 @@ Copy-Item .env.example .env
 ```
 
 3. IMPORTANTE: Configure o ambiente seguindo os [passos listados aqui](#-configura%C3%A7%C3%A3o-de-ambiente).
-   - Preencha o `.env` com seus próprios valores (JWT secret, URLs etc.) [Clique aqui](#configurando-as-portas)
-   - Configure o `Nginx` [(Clique aqui)](#configurando-nginx)
+   - Preencha o `.env` com seus próprios valores (JWT secret, URLs etc.) [(Veja mais)](#configurando-as-portas)
+   - Configure o `Nginx` [(Veja mais)](#configurando-nginx)
 
 5. Depois de configurar o ambiente, execute o seguinte comando para iniciar os serviços (frontend, backend e banco MongoDB):
 
@@ -81,11 +81,11 @@ docker compose down
 docker compose rm -f
 ```
 
-## 🔒 Configuração de Ambiente
+# 🔒 Configuração de Ambiente
 
-### Configurando as variáveis de ambiente (_.env_)
+## Configurando as variáveis de ambiente (_.env_)
 
-#### Configurando as portas
+### Configurando as portas
 
 A porta externa que você vai usar para acessar o Frontend (http://localhost:FRONTEND_PORT)
 
@@ -99,7 +99,7 @@ A porta interna que o Backend em Go escuta
 BACKEND_PORT=8000
 ```
 
-#### Configurando banco de dados
+### Configurando banco de dados
 
 Credenciais do banco de dados (USADO SOMENTE PARA INICIALIZAR O SERVIÇO MONGODB)
 
@@ -119,11 +119,11 @@ PRECISA ser igual o usuário/senha acima.
 
 MONGO_URI=mongodb://seu_usuario_do_bd:seu_senha_do_bd@mongodb:27017
 
-#### Gerando uma chave secreta JWT
+### Gerando uma chave secreta JWT
 
 Para criar uma chave aleatória e segura para o JWT no console:
 
-##### Usando Node.js:
+#### Usando Node.js:
 
 ```bash
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
@@ -131,7 +131,7 @@ node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
 Copie o resultado e coloque no campo `JWT_SECRET` do seu `.env`.
 
-##### Usando OpenSSL
+#### Usando OpenSSL
 
 ```bash
 openssl rand -base64 32
@@ -139,7 +139,7 @@ openssl rand -base64 32
 
 Copie a saída e utilize como sua chave secreta.
 
-### Configurando NGINX
+## Configurando NGINX
 
 Crie um arquivo de configuração do Nginx em `/Frontend/nginx.conf`.
 
