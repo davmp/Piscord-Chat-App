@@ -1,0 +1,51 @@
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_DATABASE: piscord
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    volumes:
+      - "${MONGO_VOLUME_NAME}:/data/db"
+    networks:
+      - piscord-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Backend/Dockerfile
+    container_name: piscord-backend
+    restart: always
+    environment:
+      MONGO_URI: ${MONGO_URI}
+      PORT: ${BACKEND_PORT}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+    networks:
+      - piscord-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Frontend/Dockerfile
+    container_name: piscord-frontend
+    restart: always
+    ports:
+      - "${FRONTEND_PORT}:4200"
+    networks:
+      - piscord-network
+    depends_on:
+      - backend
+
+networks:
+  piscord-network:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    name: ${MONGO_VOLUME_NAME}
